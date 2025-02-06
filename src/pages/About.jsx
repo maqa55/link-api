@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import './about.scss';
 
 const About = () => {
   const [pro, setPro] = useState([]);
-
+  const mode = useSelector(state => state.darkMode.mode); 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => {
@@ -12,7 +14,7 @@ const About = () => {
         return response.json();
       })
       .then(data => {
-        setPro(data);  
+        setPro(data);
       })
       .catch(error => {
         console.error('API hatası:', error);
@@ -20,13 +22,13 @@ const About = () => {
   }, []);
 
   return (
-    <div>
+    <div className={`about-container ${mode === 'dark' ? 'dark' : 'light'}`}>
       {pro.length > 0 ? (
         pro.map(item => (
-          <div key={item.id}>{item.title}
-          <h1>{item.userId}</h1>
-          <h1>{item.id}</h1>
-          <h1>{item.body}</h1>
+          <div key={item.id} className="post-item">
+            <h1>{item.title}</h1>
+            <h2>User ID: {item.userId}</h2>
+            <p>{item.body}</p>
           </div>
         ))
       ) : (

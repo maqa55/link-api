@@ -1,46 +1,84 @@
 .main-container {
-    padding: 20px;
-    transition: background-color 0.3s, color 0.3s;  
-  }
-  
-  .main-container.dark {
-    background-color: #333;
-    color: white;
-  }
-  
-  .main-container.light {
-    background-color: #fff;
+  padding: 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.main-container.dark {
+  background-color: #333;
+  color: white; 
+}
+
+.main-container.light {
+  background-color: #fff;
+  color: black; 
+}
+
+.about-container {
+  padding: 20px;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.about-container.dark {
+  background-color: #222; 
+  color: white; 
+}
+
+.about-container.light {
+  background-color: #f4f4f4;
+  color: black; 
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  grid-gap: 20px;
+  margin-top: 20px;
+}
+
+.grid-item {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+  h3{color: black;}
+  h4{color: black;}
+  p{color: black;}
+  h1{color: black;}
+  strong{
     color: black;
   }
-  .about-container {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 sütun düzeni */
-    grid-gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .grid-item {
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  .grid-item img {
-    overflow: hidden;
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  
-  .grid-item h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
+}
+
+.grid-item.dark {
+  background-color: #444; 
+  color: white; 
+}
+
+.grid-item.light {
+  background-color: #fff;
+  color: black; 
+}
+
+.grid-item img {
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.grid-item h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.grid-item.dark img {
+  border: 2px solid #fff; 
+}
+
+.grid-item.light img {
+  border: 2px solid #333; 
+}

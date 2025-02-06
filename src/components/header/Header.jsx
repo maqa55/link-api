@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,7 +16,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
+import { toggleMode } from '../../redux/slices/dark';
 import './header.scss';
+
+
 
 const drawerWidth = 240;
 const navItems = [
@@ -26,13 +30,17 @@ const navItems = [
 
 function Header(props) {
   const { window } = props;
+  const dispatch = useDispatch();
+  const mode = useSelector(state => state.darkMode.mode); 
+
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const [mode, setMode] = useState('light'); 
-
-  const toggleMode = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-  };
+  useEffect(() => {
+    const savedMode = localStorage.getItem('mode');
+    if (savedMode) {
+      dispatch(toggleMode()); 
+    }
+  }, [dispatch]);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -50,7 +58,7 @@ function Header(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar component="nav" sx={{ backgroundColor: mode === 'dark' ? '#333' : '#1976d2' }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -77,6 +85,37 @@ function Header(props) {
               </Button>
             ))}
           </Box>
+          <label className="switch" style={switchButtonStyle}>
+            <input
+              type="checkbox"
+              id="input" 
+              checked={mode === 'dark'}
+              onChange={() => dispatch(toggleMode())}
+            />
+            <div className="slider round">
+              <div className="sun-moon">
+                <svg id="moon-dot-1" className="moon-dot" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="50"></circle>
+                </svg>
+                <svg id="moon-dot-2" className="moon-dot" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="50"></circle>
+                </svg>
+                <svg id="moon-dot-3" className="moon-dot" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="50"></circle>
+                </svg>
+                <svg id="light-ray-1" className="light-ray" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="50"></circle>
+                </svg>
+              </div>
+              <div className="stars">
+                <svg id="star-1" className="star" viewBox="0 0 20 20">
+                  <path
+                    d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+          </label>
         </Toolbar>
       </AppBar>
       <nav>
@@ -86,7 +125,7 @@ function Header(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, 
+            keepMounted: true,
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
